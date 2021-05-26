@@ -1,3 +1,24 @@
+<?php
+include "./Conexao.php";
+
+$oConn = new Conexao();
+$oConn->setConexao();
+
+$sSql = "SELECT COUNT(P.ID) AS COUNT 
+           FROM PRODUTO P 
+          WHERE P.EXCLUIDO = 'N'";
+$oConn->query($sSql);
+$result = $oConn->getArrayResults();
+
+$iQtdProdutos = $result[0]["COUNT"];
+
+$sSql = "SELECT COUNT(V.ID) AS COUNT 
+           FROM VENDA V";
+$oConn->query($sSql);
+$result = $oConn->getArrayResults();
+
+$iQtdVendas = $result[0]["COUNT"];
+?>
 <!doctype html>
 <html lang="en" dir="ltr">
   <head>
@@ -15,7 +36,7 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
     <!-- Generated: 2018-04-16 09:29:05 +0200 -->
-    <title>Produtos</title>
+    <title>Homepage - tabler.github.io - a responsive, flat and full featured admin template</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <script src="./assets/js/require.min.js"></script>
@@ -76,16 +97,16 @@
               <div class="col-lg order-lg-first">
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                   <li class="nav-item">
-                    <a href="./index.html" class="nav-link"><i class="fe fe-home"></i> Home</a>
+                    <a href="./index.php" class="nav-link active"><i class="fe fe-home"></i> Home</a>
                   </li>
 		  <li class="nav-item">
-                    <a href="./produtos.html" class="nav-link"><i class="fe fe-package"></i> Produtos</a>
+                    <a href="./produtos.php" class="nav-link"><i class="fe fe-package"></i> Produtos</a>
                   </li>
 		  <li class="nav-item">
-                    <a href="./form-venda.html" class="nav-link"><i class="fe fe-dollar-sign"></i> Venda</a>
+                    <a href="./form-venda.php" class="nav-link"><i class="fe fe-dollar-sign"></i> Venda</a>
                   </li>
 		  <li class="nav-item">
-                    <a href="./produtos-excluidos.html" class="nav-link active"><i class="fe fe-trash"></i> Lixeira</a>
+                    <a href="./produtos-excluidos.php" class="nav-link"><i class="fe fe-trash"></i> Lixeira</a>
                   </li>
                 </ul>
               </div>
@@ -94,60 +115,29 @@
         </div>
         <div class="my-3 my-md-5">
           <div class="container">
-            <div class="row row-cards row-deck">
-              <div class="col-12">
+            <div class="page-header">
+              <h1 class="page-title">
+                Home
+              </h1>
+            </div>
+            <div class="row row-cards">
+              <div class="col-6 col-sm-4 col-lg-2">
                 <div class="card">
-                  <div class="card-header">
-                    <h3 class="card-title">Produtos excluídos</h3>		      
-                  </div>
-                  <div class="table-responsive">
-                    <table class="table card-table table-vcenter text-nowrap">
-                      <thead>
-                        <tr>
-                          <th class="w-1">#</th>
-                          <th>Descrição</th>
-                          <th>Valor unitário</th>
-                          <th>Estoque</th>                                                    
-                          <th class="w-1"></th>                          
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td><span class="text-muted">1</span></td>
-                          <td>Batata rosa</td>
-                          <td>
-                            R$ 1,50
-                          </td>
-                          <td>
-                            2000
-                          </td>                                                
-                          <td>
-                            <a class="icon" href="#">
-                              <i class="fe fe-refresh-ccw"></i>
-                            </a>			    
-                          </td>                          
-                        </tr>
-                        <tr>
-                          <td><span class="text-muted">2</span></td>
-                          <td>Farinha</td>
-                          <td>
-                            R$ 7,50
-                          </td>
-                          <td>
-                            200
-                          </td>                       
-                          <td>
-                            <a class="icon" href="#">
-                              <i class="fe fe-refresh-ccw"></i>
-                            </a>					    
-                          </td>                          
-                        </tr>
-                      </tbody>
-                    </table>
+                  <div class="card-body p-3 text-center">                    
+                    <div class="h1 m-0"><?php echo $iQtdProdutos;?></div>
+                    <div class="text-muted mb-4">Produtos</div>
                   </div>
                 </div>
               </div>
-            </div>
+	      <div class="col-6 col-sm-4 col-lg-2">
+                <div class="card">
+                  <div class="card-body p-3 text-center">                    
+                    <div class="h1 m-0"><?php echo $iQtdVendas;?></div>
+                    <div class="text-muted mb-4">Vendas</div>
+                  </div>
+                </div>
+              </div>
+            </div>            
           </div>
         </div>
       </div>

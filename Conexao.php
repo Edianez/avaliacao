@@ -22,7 +22,7 @@ class Conexao
   private $conexao;
   private $query;
 
-  function __construct($sNome = 'projeto_vendas', $sHost = 'localhost', $sUsuario = 'root', $sSenha = '')
+  function __construct($sNome = 'projeto_avaliacao', $sHost = 'localhost', $sUsuario = 'root', $sSenha = '')
   {
     $this->nome    = $sNome;
     $this->host    = $sHost;
